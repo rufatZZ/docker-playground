@@ -9,7 +9,7 @@ let Todo = require("./todo.model");
 
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://mongo:27017/todos", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/todos", { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once("open", function() {
@@ -19,8 +19,10 @@ connection.once("open", function() {
 todoRoutes.route("/").get(function(req, res) {
   Todo.find(function(err, todos) {
     if (err) {
+      res.status(500);
       console.log(err);
     } else {
+      res.status(200);
       res.json(todos);
     }
   });
@@ -29,6 +31,7 @@ todoRoutes.route("/").get(function(req, res) {
 todoRoutes.route("/:id").get(function(req, res) {
   let id = req.params.id;
   Todo.findById(id, function(err, todo) {
+    res.status(200);
     res.json(todo);
   });
 });
@@ -43,6 +46,7 @@ todoRoutes.route("/update/:id").post(function(req, res) {
     todo
       .save()
       .then(todo => {
+        res.status(200);
         res.json("Todo updated!");
       })
       .catch(err => {
