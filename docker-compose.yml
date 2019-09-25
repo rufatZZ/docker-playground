@@ -9,11 +9,11 @@ services:
     links:
       - mongo
     environment:
-      WAIT_HOSTS: localhost:27017
+      WAIT_HOSTS: mongodb:27017
   mongo:
     container_name: mongodb
     image: mongo
     ports: 
       - '27017:27017'
     volumes:
-      - './data/db:/data/db'
+      - '/data/db'

@@ -9,7 +9,7 @@ let Todo = require("./todo.model");
 
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/todos", { useNewUrlParser: true });
+mongoose.connect("mongodb://mongodb:27017/todos", { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once("open", function() {
